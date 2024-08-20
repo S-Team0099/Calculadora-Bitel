@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora | Bitel</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/10005/10005188.png" type="image/x-icon">
+    <style>
+        /* Estilo para el cuerpo de la página */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #009fa5; /* Color de fondo */
+        }
+        /* Estilo para el contenedor principal de la calculadora */
+        .container {
+            background-color: #fff; /* Fondo blanco */
+            padding: 20px; /* Espaciado interno */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 0 10px rgba(20, 20, 20, 0.1); /* Sombra sutil */
+            text-align: center; /* Alineación del texto al centro */
+            width: 90%; /* Ancho del contenedor en pantallas pequeñas */
+            max-width: 350px; /* Ancho máximo para pantallas grandes */
+            box-sizing: border-box; /* Incluye el padding y border en el cálculo del ancho */
+        }
+        /* Estilo para el logo de Bitel */
+        .container img {
+            max-width: 200px; /* Tamaño máximo del logo */
+            margin-bottom: 0px; /* Espacio debajo del logo */
+        }
+
+        /* Estilo para los campos de entrada */
+        input {
+            padding: 10px; /* Espaciado interno */
+            margin: 10px 0; /* Espaciado vertical */
+            border: 1px solid #009fa5; /* Borde con color de la empresa */
+            border-radius: 4px; /* Bordes redondeados */
+            width: calc(100% - 24px); /* Ancho ajustado */
+            box-sizing: border-box; /* Incluye el padding y border en el cálculo del ancho */
+            font-size: 16px; /* Tamaño de la fuente */
+            color: #009fa5; /* Color del texto */
+        }
+        /* Estilo para los campos de solo lectura */
+        input[readonly] {
+            background-color: #ffed00; /* Fondo amarillo */
+            color: #009fa5; /* Color del texto */
+           /* font-weight: bold; /* Texto en negrita */
+        }
+        /* Estilo para el botón */
+        button {
+            padding: 12px 20px; /* Espaciado interno */
+            border: 2px solid #009fa5; /* Borde verde */
+            background-color: #ffed00; /* Fondo amarillo */
+            color: #009fa5; /* Color del texto */
+            border-radius: 4px; /* Bordes redondeados */
+            cursor: pointer; /* Cursor de puntero */
+            font-size: 16px; /* Tamaño de la fuente */
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Efecto de transición */
+        }
+        /* Estilo para el botón al pasar el ratón sobre él */
+        button:hover {
+            background-color: #f2cc00; /* Fondo amarillo más oscuro */
+            border-color: #009fa5; /* Color del borde al pasar el ratón */
+        }
+        /* Estilo para el aviso de copyright */
+        .copyright {
+            margin-top: 50px; /* Espacio encima del aviso */
+            font-size: 14px; /* Tamaño de la fuente */
+            color: #ffffff; /* Color del texto */
+        }
+
+        /* Estilo para hacer el contenedor responsive */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%; /* Ancho del contenedor en pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo de Bitel centrado en la parte superior -->
+        <img src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052021/bitel_0.png?7VNzPB6sDAWM_ksXYOJQZ3yBPRzgQTPc&itok=eawA4-Ta" alt="Logo de Bitel">
+
+        <!-- Campos para ingresar valores -->
+        <input type="number" id="valorTotal" placeholder="Ingrese un valor total" step="0.01" />
+        <input type="number" id="porcentaje" placeholder="Porcentaje" step="0.01" />
+        <!-- Botón para calcular -->
+        <button onclick="calcularPorcentaje()">Calcular</button>
+        <!-- Campos para mostrar resultados -->
+        <input type="text" id="resultadoPorcentaje" placeholder="Resultado del porcentaje" readonly />
+        <input type="text" id="precioAPagar" placeholder="Precio a pagar" readonly />
+    </div>
+
+    <!-- Aviso de Copyright fuera del contenedor -->
+    <div class="copyright">
+        Copyright © Todos los derechos reservados @shuincho .
+    </div>
+
+    <script>
+        function calcularPorcentaje() {
+            // Obtener los valores de los inputs y convertirlos a números
+            const valorTotal = parseFloat(document.getElementById('valorTotal').value);
+            const porcentaje = parseFloat(document.getElementById('porcentaje').value);
+
+            // Validar que los valores ingresados sean números válidos
+            if (isNaN(valorTotal) || isNaN(porcentaje)) {
+                document.getElementById('resultadoPorcentaje').value = 'Ingresar valores';
+                document.getElementById('precioAPagar').value = 'Ingresar valores';
+                return;
+            }
+
+            // Calcular el valor del porcentaje aplicado
+            const descuento = (valorTotal * porcentaje) / 100;
+            // Calcular el precio final después de aplicar el descuento
+            const precioAPagar = valorTotal - descuento;
+
+            // Mostrar los resultados en los campos de texto
+            document.getElementById('resultadoPorcentaje').value = `El ${porcentaje}% de ${valorTotal} es ${descuento.toFixed(2)}`;
+            document.getElementById('precioAPagar').value = `Precio a pagar es: ${precioAPagar.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
